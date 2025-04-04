@@ -1,0 +1,156 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0;
+    overflow-y: auto;
+}
+
+/* Background Video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-background video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 120vh;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Main Content */
+.content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Stylish Container */
+.container {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    border-radius: 15px;
+    width: 50%;
+    box-shadow: 0px 6px 30px rgba(0, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    transition: 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: scale(1.03);
+}
+
+/* Title Glow Effect with Golden Text */
+.title-glow {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-image: linear-gradient(45deg, #f5c542, #f3a647, #f2e01e); /* Golden gradient */
+    background-size: 100%;
+    background-clip: text; /* Clip the background to the text */
+    color: transparent; /* Make text transparent so gradient shows */
+    text-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8); /* Golden glow effect */
+}
+
+/* Input and Button */
+.label-glow {
+    font-size: 1.2rem;
+    color: #ffeb3b;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    width: 60%;
+    padding: 12px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Stylish Button with Background Image */
+.glow-button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background: url('crum.jpg') no-repeat center center; /* Set image */
+    background-size: cover; /* Ensure the image covers the button */
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0px 4px 15px rgba(233, 216, 233, 0.3);
+    position: relative; /* To position text on top of the image */
+    text-align: center; /* Align text in the center */
+}
+
+.glow-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 6px 20px rgba(143, 134, 143, 0.5);
+}
+
+/* Historical Events */
+#history-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#history-list li {
+    font-size: 1.2rem;
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+#history-list li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid #ff5733;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
