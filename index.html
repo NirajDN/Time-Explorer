@@ -2,30 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Time Explorer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 </head>
 <body>
-    <!-- Background Video -->
     <div class="video-background">
-        <video autoplay loop muted playsinline>
+        <video autoplay muted loop>
             <source src="history.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
-    <!-- Main Content -->
     <div class="content">
         <div class="container">
             <h1 class="title-glow">Time Explorer</h1>
             <label for="date" class="label-glow">Choose a Date:</label>
-            <input type="date" id="date" class="input-field">
-            <button class="glow-button" onclick="fetchHistory()">Discover History</button>
-            <ul id="history-list"></ul>
+            <input type="text" id="date" class="input-field" placeholder="dd/mm/yyyy">
+            <button id="getHistory" class="glow-button">Discover History</button>
+            <div id="result"></div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

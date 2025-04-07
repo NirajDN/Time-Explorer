@@ -1,41 +1,47 @@
-async function fetchHistory() {
+flatpickr("#date", {
+    dateFormat: "d/m/Y",
+});
+
+document.getElementById("getHistory").addEventListener("click", async () => {
     const dateInput = document.getElementById("date").value;
-    if (!dateInput) {
-        alert("Please select a date");
-        return;
-    }
+    if (!dateInput) return alert("Please select a date.");
 
-    const month = dateInput.slice(5, 7); // Extract MM
-    const day = dateInput.slice(8, 10);  // Extract DD
-
-    const historyList = document.getElementById("history-list");
-    historyList.innerHTML = "Loading...";
+    const [day, month, year] = dateInput.split('/');
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = "<p>Loading...</p>";
 
     try {
-        const response = await fetch(`http://localhost:5503/history/${month}/${day}`);
-        const data = await response.json();
+        const res = await fetch(`http://localhost:5505/history/wikipedia/${month}/${day}`);
+        if (!res.ok) throw new Error(`Wikipedia HTTP error! status: ${res.status}`);
 
-        historyList.innerHTML = ""; // Clear previous results
+        const data = await res.json();
 
-        if (data.events && data.events.length > 0) {
-            data.events.forEach(event => {
-                const li = document.createElement("li");
-                const link = document.createElement("a");
+        // Look for the exact year
+        let showEvent = data.events.find(event => event.year == year);
 
-                link.textContent = event.text;
-                link.href = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(event.text)}`;
-                link.target = "_blank"; // Open in a new tab
-                link.style.color = "#ffeb3b"; // Highlight color
-                link.style.textDecoration = "none"; // Remove underline
-
-                li.appendChild(link);
-                historyList.appendChild(li);
-            });
-        } else {
-            historyList.innerHTML = "No events found for this date.";
+        // If not found, show a message instead of fallback
+        if (!showEvent) {
+            resultDiv.innerHTML = `<p>No events found for ${dateInput}. Please try another date.</p>`;
+            return;
         }
+
+        const page = showEvent.pages[0];
+        const title = page?.titles?.normalized || "";
+        const image = page?.thumbnail?.source || "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png";
+        const link = title ? `https://en.wikipedia.org/wiki/${title}` : "#";
+
+        resultDiv.innerHTML = `
+            <div class="card">
+                <img src="${image}" alt="Event Image">
+                <div class="card-content">
+                    <h2>${showEvent.year}</h2>
+                    <p>${showEvent.text}</p>
+                    <a href="${link}" target="_blank" class="read-more">Read More</a>
+                </div>
+            </div>
+        `;
     } catch (error) {
-        historyList.innerHTML = "Error fetching history data.";
-        console.error(error);
+        resultDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        console.error("Fetch failed:", error);
     }
-}
+});
